@@ -2,14 +2,28 @@ import styled from "styled-components";
 
 export const HeaderContainer = styled.div`
   display: flex;
-  align-items: center;
+  justify-content: space-between;
   background-color: hsl(0, 0%, 13%);
-  color: white;
+  color: whitesmoke;
   padding: 10px;
   position: fixed;
   z-index: 999;
   margin: 0;
   width: 100%;
+`;
+
+export const Logo = styled.div`
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  padding-left: 10px;
+`;
+
+export const SearchContainer = styled.div`
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  padding-right: 40px;
 `;
 
 export const Span = styled.span`
@@ -19,4 +33,19 @@ export const Span = styled.span`
   font-size: 2rem;
   align-items: center;
   padding-left: 5px;
+`;
+
+export const SearchButton = styled.button`
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+  display: flex;
+  align-items: center;
+  :hover {
+    color: aquamarine;
+  }
 `;

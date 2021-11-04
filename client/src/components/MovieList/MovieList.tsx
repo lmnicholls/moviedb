@@ -1,7 +1,8 @@
 import React from "react";
+import { MovieListContainer } from "./MovieListStyles";
 
-function MovieList() {
-  return <div></div>;
-}
+const MovieList = () => {
+  return <MovieListContainer>Movie List</MovieListContainer>;
+};
 
 export default MovieList;

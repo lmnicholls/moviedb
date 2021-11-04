@@ -10,10 +10,10 @@ import { BiMoviePlay, BiSearchAlt, BiX } from "react-icons/bi";
 
 interface Props {
   show: boolean;
-  setShow: (active: boolean) => void;
+  handleShow: () => void;
 }
 
-const Header = ({ show, setShow }: Props) => {
+const Header = ({ show, handleShow }: Props) => {
   return (
     <HeaderContainer>
       <Logo>
@@ -21,7 +21,7 @@ const Header = ({ show, setShow }: Props) => {
         <Span>MovieDB</Span>
       </Logo>
       <SearchContainer>
-        <SearchButton onClick={() => setShow(!show)}>
+        <SearchButton onClick={() => handleShow()}>
           {show ? (
             <>
               <BiSearchAlt size="2rem" /> <span>Find A Movie</span>

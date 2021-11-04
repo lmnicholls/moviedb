@@ -38,8 +38,6 @@ class App extends React.Component<MyProps, MyState> {
         const results = response.data.results;
         this.setState({ results: results });
       });
-
-    console.log("results", this.state.results);
   };
 
   // componentWillMount() {
@@ -62,7 +60,7 @@ class App extends React.Component<MyProps, MyState> {
           searchTerm={this.state.searchTerm}
           handleSearch={this.handleSearch}
         />
-        <MovieList />
+        <MovieList results={this.state.results} />
       </AppContainer>
     );
   }

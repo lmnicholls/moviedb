@@ -3,15 +3,23 @@ import Modal from "react-modal";
 
 export const MovieDetailContainer = styled.div`
   padding-top: 66px;
-  // display: flex;
-  // flex: 1;
-  // justlifycontent: center;
-  // alignitems: center;
+  overflow-y: auto;
+  .ReactModal__Content {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 50%;
+    top: 50%;
+    overflow: auto;
+    background-color: #fff;
+    -webkit-transform: translate(-50, -50%);
+    transform: translate(-50, -50%);
+  }
 `;
 
 export const Header = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   background-color: hsl(0, 0%, 13%);
 `;
 
@@ -19,14 +27,14 @@ export const CloseButton = styled.button`
   background: none;
   color: white;
   border: none;
-  padding: 0;
+  margin-right: 8px;
   font: inherit;
   cursor: pointer;
   outline: inherit;
   display: flex;
   align-items: center;
   :hover {
-    color: aqua;
+    color: red;
   }
 `;
 
@@ -35,26 +43,37 @@ export const PosterPath = styled.img`
 `;
 
 export const MovieModal = styled(Modal)`
-  width: 500px !important;
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  width: 50%;
+  margin-right -50%;
+  transform: translate(50%, 30%);
+  overflow-y: auto;
   height: auto !important;
-  position: absolute;
-  background: white;
+  outline: none;
+  background-color: white !important;
 `;
 
 export const DetailInfo = styled.div`
   font-family: Work Sans;
+  background-color: white;
 `;
 
 export const Title = styled.div`
-  font-size: 2.5rem;
+  font-size: 2rem;
   padding-left: 10px;
+  color: white;
+  padding: 10px;
 `;
 
 export const Tagline = styled.div`
-  font-size: 1.25rem;
+  font-size: 1rem;
   font-style: italic;
-  padding-left: 10px;
-  padding-right: 20px;
+  padding: 5px 10px;
+  background-color: rgb(56, 57, 59);
+  color: white;
 `;
 
 export const ReleaseRating = styled.div`
@@ -64,6 +83,9 @@ export const ReleaseRating = styled.div`
   padding-left: 10px;
   padding-right: 20px;
   font-size: 0.8rem;
+  h3 {
+    margin: 0;
+  }
 `;
 
 export const Overview = styled.div`

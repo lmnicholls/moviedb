@@ -47,6 +47,6 @@ export const SearchButton = styled.button`
   display: flex;
   align-items: center;
   :hover {
-    color: aqua;
+    color: red;
   }
 `;

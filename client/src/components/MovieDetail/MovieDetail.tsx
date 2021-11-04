@@ -13,19 +13,6 @@ import {
 } from "./MovieDetailStyles";
 import { BiX } from "react-icons/bi";
 
-const customStyles = {
-  content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    width: "50%",
-    height: "50%",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
-  },
-};
-
 interface Props {
   showMovieDetail: boolean;
   currentMovie: {
@@ -46,37 +33,37 @@ MovieModal.setAppElement("#root");
 const MovieDetail = ({
   showMovieDetail,
   currentMovie,
-  handleShowMovieDetails,
   handleCloseMovieDetails,
 }: Props) => {
-  const POSTER_PATH = "http://image.tmdb.org/t/p/w185";
   const BACKDROP_PATH = "http://image.tmdb.org/t/p/w1280";
 
-  console.log("currentmovie", currentMovie);
-
   const [modalIsOpen, setIsOpen] = React.useState(showMovieDetail);
-
-  function openModal() {
-    setIsOpen(true);
-  }
 
   function closeModal() {
     setIsOpen(false);
     handleCloseMovieDetails();
   }
 
+  MovieModal.setAppElement("#root");
+
   return (
     <MovieDetailContainer>
-      <MovieModal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        style={customStyles}
-      >
+      <MovieModal isOpen={modalIsOpen} onRequestClose={closeModal}>
         <Header>
+          {currentMovie.title !== "" ? (
+            <Title>{currentMovie.title}</Title>
+          ) : (
+            <></>
+          )}
           <CloseButton onClick={closeModal}>
-            <BiX size="1.25rem" />
+            <BiX size="1.7rem" />
           </CloseButton>
         </Header>
+        {currentMovie.tagline !== "" ? (
+          <Tagline>{currentMovie.tagline}</Tagline>
+        ) : (
+          <></>
+        )}
         {currentMovie.backdrop_path !== null ? (
           <PosterPath
             src={`${BACKDROP_PATH}${currentMovie.backdrop_path}`}
@@ -86,25 +73,36 @@ const MovieDetail = ({
           <></>
         )}
         <DetailInfo>
-          <Title>{currentMovie.title}</Title>
-          <Tagline>{currentMovie.tagline}</Tagline>
           <ReleaseRating>
-            <h3>Release Date: {currentMovie.release_date}</h3>
+            <h3>
+              Release Date:{" "}
+              {currentMovie.release_date !== "" ? (
+                <> {currentMovie.release_date} </>
+              ) : (
+                <>No Release Date</>
+              )}
+            </h3>
             {currentMovie.vote_average !== undefined ? (
               <h3>
                 Rating:
-                {currentMovie.vote_average > 5.0 ? (
-                  <span style={{ color: "green" }}>
-                    {" "}
-                    {currentMovie.vote_average}
-                  </span>
+                {currentMovie.vote_average !== 0 ? (
+                  <>
+                    {currentMovie.vote_average > 5.0 ? (
+                      <span style={{ color: "green" }}>
+                        {" "}
+                        {currentMovie.vote_average}
+                      </span>
+                    ) : (
+                      <span style={{ color: "red" }}>
+                        {" "}
+                        {currentMovie.vote_average}
+                      </span>
+                    )}
+                    /10.0{" "}
+                  </>
                 ) : (
-                  <span style={{ color: "red" }}>
-                    {" "}
-                    {currentMovie.vote_average}
-                  </span>
+                  <> Not rated</>
                 )}
-                / 10.0
               </h3>
             ) : (
               <></>
@@ -112,7 +110,11 @@ const MovieDetail = ({
           </ReleaseRating>
           <Overview>
             <h3>Overview</h3>
-            {currentMovie.overview}
+            {currentMovie.overview !== null ? (
+              <>{currentMovie.overview}</>
+            ) : (
+              <>No description available</>
+            )}
           </Overview>
         </DetailInfo>
       </MovieModal>

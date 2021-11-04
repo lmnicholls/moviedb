@@ -50,21 +50,22 @@ class App extends React.Component<MyProps, MyState> {
   };
 
   handleSearch = (data: string) => {
-    this.setState({ searchTerm: data });
-    this.setState({ show: !this.state.show });
-    this.setState({ showMovieDetail: false });
     axios
       .get(
         `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&query=${this.state.searchTerm}`
       )
       .then((response) => {
         const results = response.data.results;
-        this.setState({ results: results });
+        this.setState({
+          searchTerm: data,
+          results: results,
+          show: !this.state.show,
+          showMovieDetail: false,
+        });
       });
   };
 
   handleShowMovieDetails = (id: any) => {
-    this.setState({ showMovieDetail: true });
     axios
       .get(
         `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&include_adult=false&include_video=false`
@@ -72,6 +73,7 @@ class App extends React.Component<MyProps, MyState> {
       .then((response) => {
         const result = response.data;
         this.setState({
+          showMovieDetail: true,
           currentMovie: {
             title: result.title,
             backdrop_path: result.backdrop_path,
@@ -86,8 +88,8 @@ class App extends React.Component<MyProps, MyState> {
   };
 
   handleCloseMovieDetails = () => {
-    this.setState({ showMovieDetail: false });
     this.setState({
+      showMovieDetail: false,
       currentMovie: {
         title: "",
         backdrop_path: "",

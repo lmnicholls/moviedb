@@ -1,6 +1,13 @@
 import React from "react";
-import Modal from "react-modal";
-import { MovieDetailContainer } from "./MovieDetailStyles";
+import {
+  MovieDetailContainer,
+  Header,
+  CloseButton,
+  PosterPath,
+  MovieModal,
+  DetailInfo,
+} from "./MovieDetailStyles";
+import { BiX } from "react-icons/bi";
 
 const customStyles = {
   content: {
@@ -8,6 +15,8 @@ const customStyles = {
     left: "50%",
     right: "auto",
     bottom: "auto",
+    width: "50%",
+    height: "50%",
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
   },
@@ -15,30 +24,36 @@ const customStyles = {
 
 interface Props {
   showMovieDetail: boolean;
+  currentMovie: {
+    title?: string;
+    backdrop_path?: string;
+    vote_average?: number;
+    release_date?: string;
+    poster_path?: string;
+    tagline?: string;
+    overview?: string;
+  };
   handleShowMovieDetails: (id: number) => void;
   handleCloseMovieDetails: () => void;
 }
 
-Modal.setAppElement("#root");
+MovieModal.setAppElement("#root");
 
 const MovieDetail = ({
   showMovieDetail,
+  currentMovie,
   handleShowMovieDetails,
   handleCloseMovieDetails,
 }: Props) => {
-  // const POSTER_PATH = "http://image.tmdb.org/t/p/w185";
-  // const BACKDROP_PATH = "http://image.tmdb.org/t/p/w1280";
+  const POSTER_PATH = "http://image.tmdb.org/t/p/w185";
+  const BACKDROP_PATH = "http://image.tmdb.org/t/p/w1280";
 
-  let subtitle: any;
+  console.log("currentmovie", currentMovie);
+
   const [modalIsOpen, setIsOpen] = React.useState(showMovieDetail);
 
   function openModal() {
     setIsOpen(true);
-  }
-
-  function afterOpenModal() {
-    // references are now sync'd and can be accessed.
-    subtitle.style.color = "#f00";
   }
 
   function closeModal() {
@@ -48,17 +63,49 @@ const MovieDetail = ({
 
   return (
     <MovieDetailContainer>
-      <Modal
+      <MovieModal
         isOpen={modalIsOpen}
-        onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
         style={customStyles}
-        contentLabel="Example Modal"
       >
-        <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Hello</h2>
-        <button onClick={closeModal}>close</button>
-        <div>I am a modal</div>
-      </Modal>
+        <Header>
+          <CloseButton onClick={closeModal}>
+            <BiX size="1.25rem" />
+          </CloseButton>
+        </Header>
+        {currentMovie.backdrop_path !== null ? (
+          <PosterPath
+            src={`${BACKDROP_PATH}${currentMovie.backdrop_path}`}
+            alt="movie backdrop"
+          />
+        ) : (
+          <></>
+        )}
+        <DetailInfo>
+          <h1>{currentMovie.title}</h1>
+          <h3>{currentMovie.tagline}</h3>
+          <h3>{currentMovie.release_date}</h3>
+          {currentMovie.vote_average !== undefined ? (
+            <h3>
+              Rating:
+              {currentMovie.vote_average > 5.0 ? (
+                <span style={{ color: "green" }}>
+                  {" "}
+                  {currentMovie.vote_average}{" "}
+                </span>
+              ) : (
+                <span style={{ color: "red" }}>
+                  {" "}
+                  {currentMovie.vote_average}{" "}
+                </span>
+              )}
+              / 10.0
+            </h3>
+          ) : (
+            <></>
+          )}
+        </DetailInfo>
+      </MovieModal>
     </MovieDetailContainer>
   );
 };

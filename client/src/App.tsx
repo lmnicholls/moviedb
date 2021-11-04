@@ -12,6 +12,15 @@ type MyProps = {};
 
 type MyState = {
   searchTerm: string;
+  currentMovie: {
+    title?: string;
+    backdrop_path?: string;
+    vote_average?: number;
+    release_date?: string;
+    poster_path?: string;
+    tagline?: string;
+    overview?: string;
+  };
   results: Array<any>;
   show: boolean;
   showMovieDetail: boolean;
@@ -21,6 +30,15 @@ class App extends React.Component<MyProps, MyState> {
     super(props);
     this.state = {
       searchTerm: "",
+      currentMovie: {
+        title: "",
+        backdrop_path: "",
+        vote_average: undefined,
+        release_date: "",
+        poster_path: "",
+        tagline: "",
+        overview: "",
+      },
       results: [],
       show: true,
       showMovieDetail: false,
@@ -53,12 +71,33 @@ class App extends React.Component<MyProps, MyState> {
       )
       .then((response) => {
         const result = response.data;
-        console.log(result);
+        this.setState({
+          currentMovie: {
+            title: result.title,
+            backdrop_path: result.backdrop_path,
+            vote_average: result.vote_average,
+            release_date: result.release_date,
+            poster_path: result.poster_path,
+            tagline: result.tagline,
+            overview: result.overview,
+          },
+        });
       });
   };
 
   handleCloseMovieDetails = () => {
     this.setState({ showMovieDetail: false });
+    this.setState({
+      currentMovie: {
+        title: "",
+        backdrop_path: "",
+        vote_average: undefined,
+        release_date: "",
+        poster_path: "",
+        tagline: "",
+        overview: "",
+      },
+    });
   };
 
   componentDidMount() {
@@ -87,6 +126,7 @@ class App extends React.Component<MyProps, MyState> {
         {this.state.showMovieDetail ? (
           <MovieDetail
             showMovieDetail={this.state.showMovieDetail}
+            currentMovie={this.state.currentMovie}
             handleShowMovieDetails={this.handleShowMovieDetails}
             handleCloseMovieDetails={this.handleCloseMovieDetails}
           />

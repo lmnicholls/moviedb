@@ -2,7 +2,8 @@ import styled from "styled-components";
 
 export const SearchContainer = styled.div`
   padding-top: 66px;
-  position: absolute;
+  position: fixed;
+  z-index: 980;
   background-color: rgb(239, 239, 241);
   width: 100%;
 `;
@@ -34,7 +35,6 @@ export const SearchButton = styled.input`
   border: none;
   border-radius: 5px;
   padding: 5px;
-  font: inherit;
   font-family: Work Sans;
   cursor: pointer;
   outline: inherit;

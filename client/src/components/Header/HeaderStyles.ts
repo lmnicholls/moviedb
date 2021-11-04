@@ -40,7 +40,8 @@ export const SearchButton = styled.button`
   color: inherit;
   border: none;
   padding: 0;
-  font: inherit;
+  font: Work Sans;
+  font-size: 1.1rem;
   cursor: pointer;
   outline: inherit;
   display: flex;

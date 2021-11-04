@@ -11,6 +11,7 @@ const MovieList = ({ results, handleShowMovieDetails }: Props) => {
   const movieComponents = results.map((movie) => {
     return (
       <Movie
+        id={movie.id}
         key={movie.id}
         title={movie.title}
         img={movie.poster_path}
@@ -18,7 +19,7 @@ const MovieList = ({ results, handleShowMovieDetails }: Props) => {
       />
     );
   });
-  console.log(results);
+
   return <MovieListContainer>{movieComponents}</MovieListContainer>;
 };
 

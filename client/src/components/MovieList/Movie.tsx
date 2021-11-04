@@ -2,17 +2,24 @@ import React from "react";
 import { Poster, NoImg } from "./MovieStyles";
 
 interface Props {
-  key: number;
+  id: number;
   title: string;
   img: string;
   handleShowMovieDetails: (id: any) => void;
 }
 
-function Movie({ key, title, img, handleShowMovieDetails }: Props) {
+function Movie({ id, title, img, handleShowMovieDetails }: Props) {
   const POSTER_PATH = "http://image.tmdb.org/t/p/w185";
 
+  const handleMovieClick = (
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {
+    event.preventDefault();
+    handleShowMovieDetails(id);
+  };
+
   return (
-    <div onClick={(key) => handleShowMovieDetails(key)}>
+    <div key={id} onClick={(event) => handleMovieClick(event)}>
       {img ? (
         <Poster src={`${POSTER_PATH}${img}`} alt={title} />
       ) : (

@@ -15,7 +15,6 @@ type MyState = {
   results: Array<any>;
   show: boolean;
   showMovieDetail: boolean;
-  showMovies: boolean;
 };
 class App extends React.Component<MyProps, MyState> {
   constructor(props: any) {
@@ -25,7 +24,6 @@ class App extends React.Component<MyProps, MyState> {
       results: [],
       show: true,
       showMovieDetail: false,
-      showMovies: true,
     };
   }
 
@@ -36,7 +34,6 @@ class App extends React.Component<MyProps, MyState> {
   handleSearch = (data: string) => {
     this.setState({ searchTerm: data });
     this.setState({ show: !this.state.show });
-    this.setState({ showMovies: true });
     this.setState({ showMovieDetail: false });
     axios
       .get(
@@ -49,11 +46,22 @@ class App extends React.Component<MyProps, MyState> {
   };
 
   handleShowMovieDetails = (id: any) => {
-    this.setState({ showMovies: !this.state.showMovies });
-    this.setState({ showMovieDetail: !this.state.showMovieDetail });
+    this.setState({ showMovieDetail: true });
+    axios
+      .get(
+        `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&include_adult=false&include_video=false`
+      )
+      .then((response) => {
+        const result = response.data;
+        console.log(result);
+      });
   };
 
-  componentWillMount() {
+  handleCloseMovieDetails = () => {
+    this.setState({ showMovieDetail: false });
+  };
+
+  componentDidMount() {
     axios
       .get(
         `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false`
@@ -72,15 +80,19 @@ class App extends React.Component<MyProps, MyState> {
           searchTerm={this.state.searchTerm}
           handleSearch={this.handleSearch}
         />
-        {this.state.showMovies ? (
-          <MovieList
-            results={this.state.results}
+        <MovieList
+          results={this.state.results}
+          handleShowMovieDetails={this.handleShowMovieDetails}
+        />
+        {this.state.showMovieDetail ? (
+          <MovieDetail
+            showMovieDetail={this.state.showMovieDetail}
             handleShowMovieDetails={this.handleShowMovieDetails}
+            handleCloseMovieDetails={this.handleCloseMovieDetails}
           />
         ) : (
           <></>
         )}
-        {this.state.showMovieDetail ? <MovieDetail /> : <></>}
       </AppContainer>
     );
   }

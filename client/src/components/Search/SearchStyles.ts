@@ -28,7 +28,7 @@ export const SearchBar = styled.input`
 `;
 
 export const SearchButton = styled.input`
-  background-color: gray;
+  background-color: rgb(110, 112, 115);
   box-sizing: border-box;
   color: whitesmoke;
   border: none;
@@ -40,6 +40,6 @@ export const SearchButton = styled.input`
   outline: inherit;
   width: 65px;
   :hover {
-    background-color: aqua;
+    background-color: rgb(56, 57, 59);
   }
 `;

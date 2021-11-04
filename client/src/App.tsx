@@ -30,6 +30,7 @@ class App extends React.Component<MyProps, MyState> {
 
   handleSearch = (data: string) => {
     this.setState({ searchTerm: data });
+    this.setState({ show: !this.state.show });
     axios
       .get(
         `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&query=${this.state.searchTerm}`
@@ -40,16 +41,15 @@ class App extends React.Component<MyProps, MyState> {
       });
   };
 
-  // componentWillMount() {
-  //   axios
-  //     .get(
-  //       `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false`
-  //     )
-  //     .then((response) => {
-  //       console.log(response.data);
-  //       this.setState({});
-  //     });
-  // }
+  componentWillMount() {
+    axios
+      .get(
+        `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false`
+      )
+      .then((response) => {
+        this.setState({ results: response.data.results });
+      });
+  }
 
   render() {
     return (

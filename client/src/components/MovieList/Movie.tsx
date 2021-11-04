@@ -2,17 +2,17 @@ import React from "react";
 import { Poster, NoImg } from "./MovieStyles";
 
 interface Props {
-  id: number;
   key: number;
   title: string;
   img: string;
+  handleShowMovieDetails: (id: any) => void;
 }
 
-const POSTER_PATH = "http://image.tmdb.org/t/p/w185";
+function Movie({ key, title, img, handleShowMovieDetails }: Props) {
+  const POSTER_PATH = "http://image.tmdb.org/t/p/w185";
 
-function Movie({ id, key, title, img }: Props) {
   return (
-    <div>
+    <div onClick={(key) => handleShowMovieDetails(key)}>
       {img ? (
         <Poster src={`${POSTER_PATH}${img}`} alt={title} />
       ) : (

@@ -4,6 +4,7 @@ import Header from "./components/Header/Header";
 import Search from "./components/Search/Search";
 import MovieList from "./components/MovieList/MovieList";
 import axios from "axios";
+import MovieDetail from "./components/MovieDetail/MovieDetail";
 
 const API_KEY = process.env.REACT_APP_MOVIE_DB_KEY;
 
@@ -13,6 +14,8 @@ type MyState = {
   searchTerm: string;
   results: Array<any>;
   show: boolean;
+  showMovieDetail: boolean;
+  showMovies: boolean;
 };
 class App extends React.Component<MyProps, MyState> {
   constructor(props: any) {
@@ -21,16 +24,20 @@ class App extends React.Component<MyProps, MyState> {
       searchTerm: "",
       results: [],
       show: true,
+      showMovieDetail: false,
+      showMovies: true,
     };
   }
 
-  handleShow = () => {
+  handleShowSearch = () => {
     this.setState({ show: !this.state.show });
   };
 
   handleSearch = (data: string) => {
     this.setState({ searchTerm: data });
     this.setState({ show: !this.state.show });
+    this.setState({ showMovies: true });
+    this.setState({ showMovieDetail: false });
     axios
       .get(
         `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&query=${this.state.searchTerm}`
@@ -39,6 +46,11 @@ class App extends React.Component<MyProps, MyState> {
         const results = response.data.results;
         this.setState({ results: results });
       });
+  };
+
+  handleShowMovieDetails = (id: any) => {
+    this.setState({ showMovies: !this.state.showMovies });
+    this.setState({ showMovieDetail: !this.state.showMovieDetail });
   };
 
   componentWillMount() {
@@ -54,13 +66,21 @@ class App extends React.Component<MyProps, MyState> {
   render() {
     return (
       <AppContainer>
-        <Header show={this.state.show} handleShow={this.handleShow} />
+        <Header show={this.state.show} handleShow={this.handleShowSearch} />
         <Search
           show={this.state.show}
           searchTerm={this.state.searchTerm}
           handleSearch={this.handleSearch}
         />
-        <MovieList results={this.state.results} />
+        {this.state.showMovies ? (
+          <MovieList
+            results={this.state.results}
+            handleShowMovieDetails={this.handleShowMovieDetails}
+          />
+        ) : (
+          <></>
+        )}
+        {this.state.showMovieDetail ? <MovieDetail /> : <></>}
       </AppContainer>
     );
   }

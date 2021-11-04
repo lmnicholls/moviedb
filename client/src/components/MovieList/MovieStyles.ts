@@ -21,4 +21,8 @@ export const NoImg = styled.div`
   text-align: center;
   padding: 2px;
   margin: 2px;
+  &:hover {
+    transform: scale(1.06);
+    transition-duration: 300ms;
+  }
 `;

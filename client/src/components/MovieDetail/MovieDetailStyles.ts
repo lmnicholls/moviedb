@@ -35,26 +35,43 @@ export const PosterPath = styled.img`
 `;
 
 export const MovieModal = styled(Modal)`
-  inset: 40% auto auto 50% !important;
   width: 500px !important;
   height: auto !important;
-  // top: 20%;
-  // left: 50%;
   position: absolute;
-  // right: auto;
-  // bottom: auto;
-  // margin-right: -50%;
-  // transform: translate(-50%, -50%);
   background: white;
 `;
 
 export const DetailInfo = styled.div`
   font-family: Work Sans;
-  h1 {
-    font-size: 2.5rem;
-    margin: 0;
-  }
+`;
+
+export const Title = styled.div`
+  font-size: 2.5rem;
+  padding-left: 10px;
+`;
+
+export const Tagline = styled.div`
+  font-size: 1.25rem;
+  font-style: italic;
+  padding-left: 10px;
+  padding-right: 20px;
+`;
+
+export const ReleaseRating = styled.div`
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+  padding-left: 10px;
+  padding-right: 20px;
+  font-size: 0.8rem;
+`;
+
+export const Overview = styled.div`
   h3 {
-    font-size: 1 rem;
+    text-decoration: underline;
+    margin-bottom: 2px;
+    margin-top: 0;
+    font-size: 1.1rem;
   }
+  padding: 10px;
 `;

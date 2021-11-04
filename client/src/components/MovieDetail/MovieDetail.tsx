@@ -6,6 +6,10 @@ import {
   PosterPath,
   MovieModal,
   DetailInfo,
+  Title,
+  Tagline,
+  ReleaseRating,
+  Overview,
 } from "./MovieDetailStyles";
 import { BiX } from "react-icons/bi";
 
@@ -82,28 +86,34 @@ const MovieDetail = ({
           <></>
         )}
         <DetailInfo>
-          <h1>{currentMovie.title}</h1>
-          <h3>{currentMovie.tagline}</h3>
-          <h3>{currentMovie.release_date}</h3>
-          {currentMovie.vote_average !== undefined ? (
-            <h3>
-              Rating:
-              {currentMovie.vote_average > 5.0 ? (
-                <span style={{ color: "green" }}>
-                  {" "}
-                  {currentMovie.vote_average}{" "}
-                </span>
-              ) : (
-                <span style={{ color: "red" }}>
-                  {" "}
-                  {currentMovie.vote_average}{" "}
-                </span>
-              )}
-              / 10.0
-            </h3>
-          ) : (
-            <></>
-          )}
+          <Title>{currentMovie.title}</Title>
+          <Tagline>{currentMovie.tagline}</Tagline>
+          <ReleaseRating>
+            <h3>Release Date: {currentMovie.release_date}</h3>
+            {currentMovie.vote_average !== undefined ? (
+              <h3>
+                Rating:
+                {currentMovie.vote_average > 5.0 ? (
+                  <span style={{ color: "green" }}>
+                    {" "}
+                    {currentMovie.vote_average}
+                  </span>
+                ) : (
+                  <span style={{ color: "red" }}>
+                    {" "}
+                    {currentMovie.vote_average}
+                  </span>
+                )}
+                / 10.0
+              </h3>
+            ) : (
+              <></>
+            )}
+          </ReleaseRating>
+          <Overview>
+            <h3>Overview</h3>
+            {currentMovie.overview}
+          </Overview>
         </DetailInfo>
       </MovieModal>
     </MovieDetailContainer>

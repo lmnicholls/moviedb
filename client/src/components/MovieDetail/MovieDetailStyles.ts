@@ -48,9 +48,9 @@ export const MovieModal = styled(Modal)`
   left: 50%;
   right: auto;
   bottom: auto;
-  width: 50%;
-  margin-right -50%;
-  transform: translate(50%, 30%);
+  margin: 120px auto;
+  width: 50vw;
+  max-height: calc(100vh - 150px);
   overflow-y: auto;
   height: auto !important;
   outline: none;

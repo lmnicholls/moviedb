@@ -22,6 +22,9 @@ type MyState = {
     overview?: string;
   };
   results: Array<any>;
+  currentPage: number;
+  totalPages: number;
+  hasMoreMovies: boolean;
   show: boolean;
   showMovieDetail: boolean;
 };
@@ -40,6 +43,9 @@ class App extends React.Component<MyProps, MyState> {
         overview: "",
       },
       results: [],
+      currentPage: 0,
+      totalPages: 0,
+      hasMoreMovies: true,
       show: true,
       showMovieDetail: false,
     };
@@ -108,8 +114,35 @@ class App extends React.Component<MyProps, MyState> {
         `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false`
       )
       .then((response) => {
-        this.setState({ results: response.data.results, searchTerm: "" });
+        this.setState({ results: response.data.results });
       });
+  };
+
+  fetchMoreMovies = () => {
+    if (this.state.currentPage < this.state.totalPages) {
+      axios
+        .get(
+          `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${
+            this.state.currentPage + 1
+          }`
+        )
+        .then((response) => {
+          let updatedResults = [...this.state.results];
+          let results = response.data.results;
+          results.forEach((movie: any) => {
+            if (!updatedResults.some((e) => e.id === movie.id)) {
+              updatedResults.push(movie);
+              return;
+            }
+          });
+          this.setState({
+            results: updatedResults,
+            currentPage: this.state.currentPage + 1,
+          });
+        });
+    } else {
+      this.setState({ hasMoreMovies: false });
+    }
   };
 
   componentDidMount() {
@@ -118,7 +151,10 @@ class App extends React.Component<MyProps, MyState> {
         `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false`
       )
       .then((response) => {
-        this.setState({ results: response.data.results });
+        this.setState({
+          results: response.data.results,
+          totalPages: response.data.total_pages,
+        });
       });
   }
 
@@ -135,6 +171,9 @@ class App extends React.Component<MyProps, MyState> {
         <MovieList
           results={this.state.results}
           handleShowMovieDetails={this.handleShowMovieDetails}
+          totalPages={this.state.totalPages}
+          fetchMoreMovies={this.fetchMoreMovies}
+          hasMoreMovies={this.state.hasMoreMovies}
         />
         {this.state.showMovieDetail ? (
           <MovieDetail

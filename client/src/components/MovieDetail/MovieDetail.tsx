@@ -10,6 +10,7 @@ import {
   Tagline,
   ReleaseRating,
   Overview,
+  Rating,
 } from "./MovieDetailStyles";
 import { BiX } from "react-icons/bi";
 
@@ -74,36 +75,31 @@ const MovieDetail = ({
         )}
         <DetailInfo>
           <ReleaseRating>
-            <h3>
-              Release Date:{" "}
+            <div>
+              <span>Year:</span>
+              <br />
               {currentMovie.release_date !== "" ? (
-                <> {currentMovie.release_date} </>
+                <h3> {currentMovie?.release_date?.slice(0, 4)} </h3>
               ) : (
                 <>No Release Date</>
               )}
-            </h3>
+            </div>
             {currentMovie.vote_average !== undefined ? (
-              <h3>
-                Rating:
+              <div>
+                <span>Rating:</span>
+                <br />
                 {currentMovie.vote_average !== 0 ? (
                   <>
-                    {currentMovie.vote_average > 5.0 ? (
-                      <span style={{ color: "green" }}>
-                        {" "}
-                        {currentMovie.vote_average}
-                      </span>
+                    {currentMovie.vote_average >= 5.0 ? (
+                      <Rating color="high">{currentMovie.vote_average}</Rating>
                     ) : (
-                      <span style={{ color: "red" }}>
-                        {" "}
-                        {currentMovie.vote_average}
-                      </span>
+                      <Rating color="low">{currentMovie.vote_average}</Rating>
                     )}
-                    /10.0{" "}
                   </>
                 ) : (
                   <> Not rated</>
                 )}
-              </h3>
+              </div>
             ) : (
               <></>
             )}

@@ -35,6 +35,7 @@ export const CloseButton = styled.button`
   align-items: center;
   :hover {
     color: red;
+    text-align: center;
   }
 `;
 
@@ -81,11 +82,46 @@ export const ReleaseRating = styled.div`
   flex-flow: row;
   justify-content: space-between;
   padding-left: 10px;
-  padding-right: 20px;
+  padding-right: 10px;
   font-size: 0.8rem;
-  h3 {
-    margin: 0;
+  div {
+    // display: flex;
+    // flex-flow: column;
+    // justify-items: center;
+    // align-self: start;
+    h3 {
+      margin: 0;
+    }
+    span {
+      color: gray;
+      fontsize: 0.9rem;
+    }
   }
+`;
+
+const handleRatingColor = (color: any) => {
+  switch (color) {
+    case "high":
+      return "green";
+    case "low":
+      return "red";
+    default:
+      return "black";
+  }
+};
+
+export const Rating = styled.div`
+  background-color: ${({ color }) => handleRatingColor(color)};
+  border-radius: 40px;
+  height: 20px;
+  width: 20px;
+  display: flex;
+  color: white;
+  font-weight: 600;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  margin: auto;
 `;
 
 export const Overview = styled.div`

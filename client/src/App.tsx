@@ -21,6 +21,7 @@ type MyState = {
     tagline?: string;
     overview?: string;
   };
+  type: string;
   results: Array<any>;
   currentPage: number;
   totalPages: number;
@@ -42,6 +43,7 @@ class App extends React.Component<MyProps, MyState> {
         tagline: "",
         overview: "",
       },
+      type: "discover",
       results: [],
       currentPage: 0,
       totalPages: 0,
@@ -61,12 +63,14 @@ class App extends React.Component<MyProps, MyState> {
         `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&query=${data}`
       )
       .then((response) => {
+        console.log(response.data);
         const results = response.data.results;
         this.setState({
           searchTerm: data,
           results: results,
           show: !this.state.show,
           showMovieDetail: false,
+          type: "search",
         });
       });
   };
@@ -114,12 +118,20 @@ class App extends React.Component<MyProps, MyState> {
         `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false`
       )
       .then((response) => {
-        this.setState({ results: response.data.results });
+        this.setState({
+          results: response.data.results,
+          type: "discover",
+          currentPage: 0,
+          totalPages: response.data.total_pages,
+        });
       });
   };
 
   fetchMoreMovies = () => {
-    if (this.state.currentPage < this.state.totalPages) {
+    if (
+      this.state.currentPage < this.state.totalPages &&
+      this.state.type === "discover"
+    ) {
       axios
         .get(
           `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${

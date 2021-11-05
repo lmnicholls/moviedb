@@ -40,7 +40,6 @@ const MovieList = ({
       loadMore={fetchMoreMovies}
       hasMore={hasMoreMovies}
       loader={<h4>Loading...</h4>}
-      // scrollableTarget={MovieListContainer}
     >
       <MovieListContainer>{movieComponents}</MovieListContainer>
     </InfiniteScroll>

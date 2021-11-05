@@ -71,6 +71,9 @@ class App extends React.Component<MyProps, MyState> {
           show: !this.state.show,
           showMovieDetail: false,
           type: "search",
+          totalPages: response.data.total_pages,
+          currentPage: 1,
+          hasMoreMovies: true,
         });
       });
   };
@@ -121,37 +124,59 @@ class App extends React.Component<MyProps, MyState> {
         this.setState({
           results: response.data.results,
           type: "discover",
-          currentPage: 0,
+          currentPage: 1,
           totalPages: response.data.total_pages,
+          hasMoreMovies: true,
         });
       });
   };
 
   fetchMoreMovies = () => {
-    if (
-      this.state.currentPage < this.state.totalPages &&
-      this.state.type === "discover"
-    ) {
-      axios
-        .get(
-          `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${
-            this.state.currentPage + 1
-          }`
-        )
-        .then((response) => {
-          let updatedResults = [...this.state.results];
-          let results = response.data.results;
-          results.forEach((movie: any) => {
-            if (!updatedResults.some((e) => e.id === movie.id)) {
-              updatedResults.push(movie);
-              return;
-            }
+    if (this.state.currentPage < this.state.totalPages) {
+      if (this.state.type === "discover") {
+        axios
+          .get(
+            `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${
+              this.state.currentPage + 1
+            }`
+          )
+          .then((response) => {
+            let updatedResults = [...this.state.results];
+            let results = response.data.results;
+            results.forEach((movie: any) => {
+              if (!updatedResults.some((e) => e.id === movie.id)) {
+                updatedResults.push(movie);
+                return;
+              }
+            });
+            this.setState({
+              results: updatedResults,
+              currentPage: this.state.currentPage + 1,
+            });
           });
-          this.setState({
-            results: updatedResults,
-            currentPage: this.state.currentPage + 1,
+      }
+      if (this.state.type === "search") {
+        axios
+          .get(
+            `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&query=${
+              this.state.searchTerm
+            }&page=${this.state.currentPage + 1}`
+          )
+          .then((response) => {
+            let updatedResults = [...this.state.results];
+            let results = response.data.results;
+            results.forEach((movie: any) => {
+              if (!updatedResults.some((e) => e.id === movie.id)) {
+                updatedResults.push(movie);
+                return;
+              }
+            });
+            this.setState({
+              results: updatedResults,
+              currentPage: this.state.currentPage + 1,
+            });
           });
-        });
+      }
     } else {
       this.setState({ hasMoreMovies: false });
     }
@@ -166,6 +191,7 @@ class App extends React.Component<MyProps, MyState> {
         this.setState({
           results: response.data.results,
           totalPages: response.data.total_pages,
+          currentPage: 1,
         });
       });
   }

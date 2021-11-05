@@ -39,7 +39,7 @@ const MovieList = ({
       pageStart={0}
       loadMore={fetchMoreMovies}
       hasMore={hasMoreMovies}
-      loader={<h4>Loading...</h4>}
+      // loader={<h4>Loading...</h4>}
     >
       <MovieListContainer>{movieComponents}</MovieListContainer>
     </InfiniteScroll>

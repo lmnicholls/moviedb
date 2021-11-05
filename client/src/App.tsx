@@ -52,7 +52,7 @@ class App extends React.Component<MyProps, MyState> {
   handleSearch = (data: string) => {
     axios
       .get(
-        `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&query=${this.state.searchTerm}`
+        `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&query=${data}`
       )
       .then((response) => {
         const results = response.data.results;

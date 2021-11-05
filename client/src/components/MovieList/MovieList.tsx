@@ -1,5 +1,5 @@
 import React from "react";
-import { MovieListContainer } from "./MovieListStyles";
+import { MovieListContainer, NoResults } from "./MovieListStyles";
 import Movie from "./Movie";
 
 interface Props {
@@ -8,6 +8,10 @@ interface Props {
 }
 
 const MovieList = ({ results, handleShowMovieDetails }: Props) => {
+  if (results.length === 0) {
+    return <NoResults>No Results Found. Please try again.</NoResults>;
+  }
+
   const movieComponents = results.map((movie) => {
     return (
       <Movie

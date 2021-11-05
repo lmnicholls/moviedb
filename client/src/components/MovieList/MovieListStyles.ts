@@ -8,3 +8,10 @@ export const MovieListContainer = styled.div`
   flex-wrap: wrap;
   margin: 0 auto;
 `;
+
+export const NoResults = styled.div`
+  padding-top: 70px;
+  padding-left: 10px;
+  color: red;
+  font-size: 1.1rem;
+`;

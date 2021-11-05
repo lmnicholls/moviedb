@@ -102,6 +102,16 @@ class App extends React.Component<MyProps, MyState> {
     });
   };
 
+  handleClear = () => {
+    axios
+      .get(
+        `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false`
+      )
+      .then((response) => {
+        this.setState({ results: response.data.results, searchTerm: "" });
+      });
+  };
+
   componentDidMount() {
     axios
       .get(
@@ -120,6 +130,7 @@ class App extends React.Component<MyProps, MyState> {
           show={this.state.show}
           searchTerm={this.state.searchTerm}
           handleSearch={this.handleSearch}
+          handleClear={this.handleClear}
         />
         <MovieList
           results={this.state.results}

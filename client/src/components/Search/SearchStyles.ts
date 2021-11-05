@@ -11,6 +11,7 @@ export const SearchContainer = styled.div`
 export const Form = styled.form`
   display: flex;
   flex-flow: row;
+  flex-grow: 1;
   justify-content: space-between;
   align-items: center;
   padding: 10px;
@@ -39,6 +40,24 @@ export const SearchButton = styled.input`
   cursor: pointer;
   outline: inherit;
   width: 65px;
+  :hover {
+    background-color: rgb(56, 57, 59);
+  }
+`;
+
+export const ClearButton = styled.button`
+  background-color: rgb(110, 112, 115);
+  box-sizing: border-box;
+  color: whitesmoke;
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+  margin-left: 5px;
+  font-family: Work Sans;
+  cursor: pointer;
+  outline: inherit;
+  width: 65px;
+  height: 25px;
   :hover {
     background-color: rgb(56, 57, 59);
   }

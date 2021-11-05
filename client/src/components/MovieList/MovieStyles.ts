@@ -13,10 +13,13 @@ export const Poster = styled.img`
 export const NoImg = styled.div`
   width: 185px;
   height: 278px;
-  background-color: rgb(144, 185, 214);
+  background-color: rgb(61, 62, 64);
   display: flex;
   font-family: Work Sans;
-  font-size: 2rem;
+  font-size: 2vw;
+  font-weight: 600;
+  color: white;
+  justify-content: center;
   align-items: center;
   text-align: center;
   padding: 2px;

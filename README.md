@@ -52,6 +52,7 @@ $ yarn start
 ## Usage
 ---
 ![](./images/README/MovieDetail.png)
+
 ![](./images/README/MovieSearch.png)
 
 <p align="right">(<a href="#top">back to top</a>)</p>

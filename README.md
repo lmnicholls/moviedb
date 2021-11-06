@@ -1,6 +1,7 @@
 <div id="top"></div>
 
 # MovieDB App
+![](./images/README/AppScreenshot.png)
 
 ## Table of Contents
 1. [About the Project](#about-the-project)
@@ -13,7 +14,6 @@
 
 ## About the Project
 ---
-![](./images/README/AppScreenshot.png)
 A movie database app using the TMDB API that allows you to search for specific movies.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
@@ -53,7 +53,7 @@ $ yarn start
 
 ## Usage
 ---
-![](./images/MovieDetail.png)
+![](./images/README/MovieDetail.png)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 

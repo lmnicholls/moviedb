@@ -16,8 +16,6 @@
 ---
 A movie database app using the TMDB API that allows you to search for specific movies.
 
-<p align="right">(<a href="#top">back to top</a>)</p>
-
 ### Built With
 * [React.js](https://reactjs.org)
 * [Typescript](https://www.typescriptlang.org/)
@@ -54,6 +52,7 @@ $ yarn start
 ## Usage
 ---
 ![](./images/README/MovieDetail.png)
+![](./images/README/MovieSearch.png)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 

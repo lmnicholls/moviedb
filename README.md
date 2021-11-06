@@ -13,7 +13,7 @@
 
 ## About the Project
 ---
-![App Screenshot](./images/README/AppScreenshot.png)
+![](./images/README/AppScreenshot.png)
 A movie database app using the TMDB API that allows you to search for specific movies.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
@@ -53,7 +53,7 @@ $ yarn start
 
 ## Usage
 ---
-
+![](./images/MovieDetail.png)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 

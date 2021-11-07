@@ -1,7 +1,7 @@
 <div id="top"></div>
 
 # MovieDB App
-![](./images/README/AppScreenshot.png)
+![](./README/AppScreenshot.png)
 
 ## Table of Contents
 1. [About the Project](#about-the-project)
@@ -51,9 +51,9 @@ $ yarn start
 
 ## Usage
 ---
-![](./images/README/MovieDetail.png)
+![](./README/MovieDetail.png)
 
-![](./images/README/MovieSearch.png)
+![](./README/MovieSearch.png)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 

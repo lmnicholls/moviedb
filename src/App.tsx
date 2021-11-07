@@ -3,7 +3,7 @@ import { AppContainer } from "./AppStyles";
 import Header from "./components/Header/Header";
 import Search from "./components/Search/Search";
 import MovieList from "./components/MovieList/MovieList";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import MovieDetail from "./components/MovieDetail/MovieDetail";
 
 const API_KEY = process.env.REACT_APP_MOVIE_DB_KEY;
@@ -131,6 +131,21 @@ class App extends React.Component<MyProps, MyState> {
       });
   };
 
+  updateResults = (response: AxiosResponse<any, any>) => {
+    let updatedResults = [...this.state.results];
+    let results = response.data.results;
+    results.forEach((movie: any) => {
+      if (!updatedResults.some((e) => e.id === movie.id)) {
+        updatedResults.push(movie);
+        return;
+      }
+    });
+    this.setState({
+      results: updatedResults,
+      currentPage: this.state.currentPage + 1,
+    });
+  };
+
   fetchMoreMovies = () => {
     if (this.state.currentPage < this.state.totalPages) {
       if (this.state.type === "discover") {
@@ -140,20 +155,7 @@ class App extends React.Component<MyProps, MyState> {
               this.state.currentPage + 1
             }`
           )
-          .then((response) => {
-            let updatedResults = [...this.state.results];
-            let results = response.data.results;
-            results.forEach((movie: any) => {
-              if (!updatedResults.some((e) => e.id === movie.id)) {
-                updatedResults.push(movie);
-                return;
-              }
-            });
-            this.setState({
-              results: updatedResults,
-              currentPage: this.state.currentPage + 1,
-            });
-          });
+          .then(this.updateResults);
       }
       if (this.state.type === "search") {
         axios
@@ -162,20 +164,7 @@ class App extends React.Component<MyProps, MyState> {
               this.state.searchTerm
             }&page=${this.state.currentPage + 1}`
           )
-          .then((response) => {
-            let updatedResults = [...this.state.results];
-            let results = response.data.results;
-            results.forEach((movie: any) => {
-              if (!updatedResults.some((e) => e.id === movie.id)) {
-                updatedResults.push(movie);
-                return;
-              }
-            });
-            this.setState({
-              results: updatedResults,
-              currentPage: this.state.currentPage + 1,
-            });
-          });
+          .then(this.updateResults);
       }
     } else {
       this.setState({ hasMoreMovies: false });

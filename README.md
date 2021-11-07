@@ -25,20 +25,20 @@ A movie database app using the TMDB API that allows you to search for specific m
 ## Getting Started
 ---
 ### Installation
-1. Get a free API key at [https://www.themoviedb.org/](https://www.themoviedb.org/)
-2. Clone this repo
+1. Clone this repo
 ```
 git clone https://github.com/lmnicholls/moviedb.git
 ```
-3. CD into moviedb
+2. CD into moviedb
 ``` 
 cd moviedb
 ```
-4. Install yarn packages
+3. Install yarn packages
 ```
 yarn install
 ```
-5. Enter your API key in a new .env file inside your moviedb folder
+4. Get a free API key at [https://www.themoviedb.org/](https://www.themoviedb.org/)
+5. Create a new .env file in your moviedb folder and add your API key
 ```js
 REACT_APP_MOVIE_DB_KEY=your_tmdb_api_key_here
 ```
